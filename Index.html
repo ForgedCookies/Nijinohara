@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=2.0">
+    <meta name="viewport" content="width=1280">
+    <title>Driver's Timetable - Home</title>
+    <!-- Link to Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* General styling for body */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #121212;
+            margin: 0;
+            padding: 20px;
+            color: #ffffff;
+        }
+
+        /* Styling for the main title */
+        h1 {
+            font-size: 32px;
+            text-align: center;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        /* Styling for the introduction */
+        .intro {
+            text-align: center;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            width: 80%;
+        }
+
+        /* Styling for the list of boxes */
+        .box-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center boxes */
+            margin: 20px auto;
+            width: 80%;
+        }
+
+        .box {
+            background-color: rgb(12, 12, 12); /* Yellow background */
+            color: rgb(255, 255, 255); /* Black text */
+            padding: 15px;
+            margin: 10px 0;
+            width: 100%; /* Full width */
+            display: flex; /* Use flexbox for layout */
+            align-items: center; /* Center items vertically */
+            justify-content: space-between; /* Space between input and button */
+        }
+
+        /* Styling for the input field */
+        .box input {
+            border: none; /* Remove default input border */
+            padding: 10px;
+            margin-right: 10px; /* Space between input and button */
+            border-radius: 4px; /* Rounded corners for input */
+            flex-grow: 1; /* Allow input to grow */
+        }
+
+        /* Styling for the button */
+        .box button {
+            background-color: #38beef; /* Button color */
+            color: black; /* Button text color */
+            border: none; /* Remove default border */
+            border-radius: 4px; /* Rounded corners for button */
+            padding: 10px 15px; /* Padding for button */
+            cursor: pointer; /* Pointer cursor on hover */
+            transition: background-color 0.3s ease; /* Transition effect */
+        }
+
+        .box button:hover {
+            background-color: #2a94bb; /* Button hover color */
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 24px;
+            }
+
+            .intro {
+                width: 90%;
+            }
+
+            .box {
+                width: 90%; /* Make boxes narrower on small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Welcome to the Driver's Timetable</h1>
+
+    <div class="intro">
+        <p>Get ready to navigate the tracks with our comprehensive timetable. Here, you'll find all the information you need to ensure smooth and timely journeys on the 虹の原新交通線.</p>
+        <p>Click the button below to view the full timetable and start your journey!</p>
+    </div>
+
+    <div class="box-container">
+        <!-- List of boxes with input fields and buttons -->
+        <div class="box">
+            <span>01系統 <br> 鶴巻セン～虹の原中央</span>
+            <button onclick="location.href='01.html'">>運転<</button>
+        </div>
+        <div class="box">
+            <span>02系統 <br> 鶴巻セン～曙野</span>
+            <button onclick="location.href='02.html'">>運転<</button>
+        </div>
+        <div class="box">
+            <span>03-1系統 <br> 春町公園～虹の原中央</span>
+            <button onclick="location.href='03.html'">>運転<</button>
+        </div>
+    </div>
+
+</body>
+</html>

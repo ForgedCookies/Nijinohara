@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>運転士時刻表-VIEW</title>
+    <!-- Import Montserrat font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* General styling for body */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        /* Styling for the main title */
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            color: #333;
+            font-weight: 600;
+        }
+
+        /* Top bar with train details */
+        .train-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #38beef;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .train-info div {
+            display: flex;
+            align-items: center;
+        }
+
+        .train-info span {
+            margin-right: 10px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* Styling the table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* Header styling */
+        th {
+            background-color: #38beef;
+            color: white;
+            padding: 12px 15px;
+            text-transform: uppercase;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Row and column styling */
+        td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 14px;
+        }
+
+        /* Styling specific columns */
+        .station {
+            text-align: left;
+            padding-left: 20px;
+        }
+
+        .time {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .speed {
+            color: #38beef;
+        }
+
+        /* Zebra-striping rows for better readability */
+        tbody tr:nth-child(even) {
+            background-color: #f3f3f3;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #fff;
+        }
+
+        /* Styling the button */
+        .toggle-btn {
+            background-color: #38beef;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+            margin: 10px;
+        }
+
+        .toggle-btn:hover {
+            background-color: #2a94bb;
+        }
+
+        .toggle-btn:focus {
+            outline: none;
+        }
+
+        /* Hidden class to hide elements */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Styling markers */
+        .marker {
+            width: 15px;
+            height: 15px;
+            background-color: #38beef;
+            border-radius: 50%;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .on-off {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .on-off button {
+            margin: 0 10px;
+        }
+
+        /* Making the table responsive */
+        @media (max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            th {
+                text-align: left;
+                background-color: transparent;
+                color: #38beef;
+            }
+
+            tr {
+                margin-bottom: 20px;
+            }
+
+            td {
+                display: flex;
+                justify-content: space-between;
+                padding: 10px;
+            }
+
+            td:before {
+                content: attr(data-label);
+                font-weight: bold;
+                color: #38beef;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header with Train Info -->
+<div class="train-info">
+    <div>
+        <span>虹の原新交通線</span> <strong>虹の原行</strong>
+    </div>
+    <div>
+        <span>最高速度</span> <strong>60 Km/h</strong>
+    </div>
+    <div>
+        <span>編成</span> <strong>3両</strong>
+    </div>
+</div>
+
+<h1>Driver's Timetable</h1>
+
+<table id="timetable">
+    <thead>
+        <tr>
+            <th>Station</th>
+            <th>Arrival</th>
+            <th>Departure</th>
+            <th>Speed Limit</th>
+        </tr>
+    </thead>
+    <tbody id="station-list">
+        <tr>
+            <td class="station" data-label="Station">Aomori</td>
+            <td class="time arrival" data-label="Arrival">18:00</td>
+            <td class="time departure" data-label="Departure">18:23</td>
+            <td class="speed" data-label="Speed Limit">60 Km/h</td>
+        </tr>
+        <tr>
+            <td class="station" data-label="Station">Shin-Aomori</td>
+            <td class="time arrival" data-label="Arrival">18:28</td>
+            <td class="time departure" data-label="Departure">18:31</td>
+            <td class="speed" data-label="Speed Limit">60 Km/h</td>
+        </tr>
+        <tr>
+            <td class="station" data-label="Station">Tsugaru-Shinjō</td>
+            <td class="time arrival" data-label="Arrival">18:33</td>
+            <td class="time departure" data-label="Departure">18:34</td>
+            <td class="speed" data-label="Speed Limit">50 Km/h</td>
+        </tr>
+
+        <!-- Additional rows can be added here -->
+    </tbody>
+</table>
+
+<div class="on-off">
+    <button class="toggle-btn" onclick="startDriving()">Start Driving</button>
+    <button class="toggle-btn" onclick="toggleEnd()">End Driving</button>
+</div>
+
+<script>
+let intervalId = null; // Global to store interval ID
+let running = false; // Track driving state
+
+// Helper function to format time
+function formatTime(date) {
+    let hours = String(date.getHours()).padStart(2, '0');
+    let minutes = String(date.getMinutes()).padStart(2, '0');
+    let seconds = String(date.getSeconds()).padStart(2, '0');
+    return `${hours}:${minutes}:${seconds}`;
+}
+
+// Function to update timetable dynamically based on runtime
+function updateTimetable() {
+    let currentTime = new Date();
+    let gmtPlusNineTime = new Date(currentTime.toLocaleString("en-US", { timeZone: "Asia/Tokyo" }));
+
+    const stationList = document.querySelectorAll("#station-list tr");
+    stationList.forEach((row, index) => {
+        let arrivalTime = new Date(gmtPlusNineTime);
+        let departureTime = new Date(gmtPlusNineTime);
+
+        // Modify times for each station (e.g. each station +5 min from previous)
+        arrivalTime.setMinutes(gmtPlusNineTime.getMinutes() + index * 5);
+        departureTime.setMinutes(gmtPlusNineTime.getMinutes() + index * 5 + 3);
+
+        // Update cells dynamically
+        row.querySelector(".arrival").textContent = formatTime(arrivalTime);
+        row.querySelector(".departure").textContent = formatTime(departureTime);
+    });
+}
+
+// Function to start driving and updating times
+function startDriving() {
+    if (!running) {
+        running = true;
+        console.log("Driving started.");
+        updateTimetable(); // Initial update
+        // Instead of setting an interval, you can update only once when the button is pressed
+    }
+}
+
+// Function to stop driving (not really necessary since we won't have updates)
+function toggleEnd() {
+    if (running) {
+        running = false;
+        console.log("Driving ended.");
+        // No need to clear an interval since we don't have one now
+    }
+}
+
+</script>
+
+</body>
+</html>

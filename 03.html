@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=2.0">
+    <meta name="viewport" content="width=1280">
+    <title>Driver's Timetable</title>
+    <!-- Link to Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* General styling for body */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #121212;
+            margin: 0;
+            padding: 20px;
+            color: #e0e0e0;
+           
+        }
+
+        /* Styling for the main title */
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        /* Styling the table */
+        table {
+            width: 50%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #1e1e1e;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            overflow: clip;
+        }
+
+        /* Header styling */
+        th {
+            background-color: #38beef;
+            color: rgb(0, 0, 0);
+            padding: 12px 15px;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        /* Row and column styling */
+        td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+
+        /* Zebra-striping rows for better readability */
+        tbody tr:nth-child(even) {
+            background-color: #2a2a2a;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #1e1e1e;
+        }
+
+        /* Hides elements with class 'travel-time' */
+        .travel-time {
+            visibility: collapse;
+        }
+
+                .train-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #38beef;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .train-info div {
+            display: flex;
+            align-items: center;
+        }
+
+        .train-info span {
+            margin-right: 10px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* Styling the button */
+        button {
+            font-family: 'Montserrat', sans-serif;
+            display: block;
+            margin: 20px auto;
+            background-color: #38beef;
+            color: rgb(0, 0, 0);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2a94bb;
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        .yellow-text-box {
+            margin: 20px auto;
+            background-color: rgb(255, 145, 0); /* Yellow background */
+            color: black; /* Black text */
+            padding: 20px; /* Padding for spacing */
+            text-align: center; /* Center text inside the box */
+            width: 50%; /* Fixed width for the text box */
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Optional shadow for better visibility */
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+
+        }
+
+        /* Making the table responsive */
+        @media (max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            th {
+                text-align: left;
+                background-color: transparent;
+                color: #38beef;
+            }
+
+            tr {
+                margin-bottom: 20px;
+            }
+
+            td {
+                display: flex;
+                justify-content: space-between;
+                padding: 10px;
+            }
+
+            td:before {
+                content: attr(data-label);
+                font-weight: bold;
+                color: #38beef;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        td:nth-child(4), th:nth-child(4) {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="train-info">
+        <div>
+            <span>虹の原新交通線</span> <strong>春町公園～虹の原中央 03-1系統</strong>
+        </div>
+        <div>
+            <span>最高速度</span> <strong>60 Km/h</strong>
+        </div>
+        <div>
+            <span>編成</span> <strong>3両</strong>
+        </div>
+    </div>
+
+<div class="top-bar">
+    <center> <h2>時刻表</h2> </center>
+
+</div>
+
+<div class="content">
+    <div class="table-container">
+        <div class="yellow-text-box">
+            <label for="myTextBox">注意<br> -月見原＆運動公園前まで回送 <br>-春町公園駅に到着したら「運転開始」を押してください。</label>
+        </div>
+        <table style="table-layout: fixed;" id="timetable">
+            <thead>
+                <tr>
+                    <th><h2>駅名</h2></th>
+                    <th><h2>着</h2></th>
+                    <th><h2>発</h2></th>
+                </tr>
+            </thead>
+            <tbody id="station-list">
+                <!-- <tr>
+                    <td data-label="Station">鶴巻セン</td>
+                    <td class="arrival" data-label="Arrival"></td>
+                    <td class="departure" data-label="Departure"></td>
+                    <td><input type="number" class="travel-time" value="78" min="0"></td>
+                </tr>
+                <tr>
+                    <td data-label="Station">月見原（通）</td>
+                    <td class="arrival" data-label="Arrival"></td>
+                    <td class="departure" data-label="Departure"></td>
+                    <td><input type="number" class="travel-time" value="34" min="0"></td>
+                </tr>
+                <tr>
+                    <td data-label="Station">運動公園（通）</td>
+                    <td class="arrival" data-label="Arrival"></td>
+                    <td class="departure" data-label="Departure"></td>
+                    <td><input type="number" class="travel-time" value="26" min="0"></td>
+                </tr>
+                <tr> -->
+                    <td data-label="Station">春町公園（停）</td>
+                    <td class="arrival" data-label="Arrival"></td>
+                    <td class="departure" data-label="Departure"></td>
+                    <td><input type="number" class="travel-time" value="39" min="0"></td>
+                </tr>
+                <tr>
+                    <td data-label="Station">曙野（停）</td>
+                    <td class="arrival" data-label="Arrival"></td>
+                    <td class="departure" data-label="Departure"></td>
+                    <td><input type="number" class="travel-time" value="25" min="0"></td>
+                </tr>
+                <tr>
+                    <td data-label="Station">虹の原中央（停）</td>
+                    <td class="arrival" data-label="Arrival"></td>
+                    <td class="departure" data-label="Departure"></td>
+                    <td><input type="number" class="travel-time" value="60" min="0"></td>
+                </tr>
+                <!-- <tr>
+                    <td data-label="Station">鶴巻団地</td>
+                    <td class="arrival" data-label="Arrival"></td>
+                    <td class="departure" data-label="Departure"></td>
+                    <td><input type="number" class="travel-time" value="15" min="0"></td>
+                </tr> -->
+            </tbody>
+        </table>
+        
+        <button onclick="startDriving()">運転開始</button>
+
+        
+    </div>
+</div>
+
+<script>
+function formatTime(date) {
+    let hours = String(date.getHours()).padStart(2, '0');
+    let minutes = String(date.getMinutes()).padStart(2, '0');
+    let seconds = String(date.getSeconds()).padStart(2, '0');
+    return `${hours}:${minutes}:${seconds}`;
+}
+
+function calculateTimes(initialDepartureTime) {
+    let rows = document.querySelectorAll('#timetable tbody tr');
+    let previousDepartureTime = new Date(initialDepartureTime);
+
+    // Fixed stop time in seconds
+    const stopTime = 25;
+
+    rows.forEach(row => {
+        let travelTime = parseInt(row.querySelector('.travel-time').value);
+        let arrivalCell = row.querySelector('.arrival');
+        let departureCell = row.querySelector('.departure');
+
+        // Arrival time is the previous departure time
+        arrivalCell.textContent = formatTime(previousDepartureTime);
+
+        // Departure time is arrival time + fixed stop time
+        let departureTime = new Date(previousDepartureTime.getTime());
+        departureTime.setSeconds(departureTime.getSeconds() + stopTime);
+        departureCell.textContent = formatTime(departureTime);
+
+        // Update the previous departure time (this will be the next station's arrival time)
+        previousDepartureTime = new Date(departureTime.getTime());
+        previousDepartureTime.setSeconds(previousDepartureTime.getSeconds() + travelTime);
+    });
+}
+
+function startDriving() {
+    if (confirm("運転開始を確認ですか？既存の時刻表はすべて更新されます。")) {
+        let currentTime = new Date();
+    let jstTime = new Date(currentTime.toLocaleString("en-US", { timeZone: "Asia/Tokyo" }));
+    // Calculate the timetable using JST as the initial departure time
+    calculateTimes(jstTime);
+} else {
+    // User clicked Cancel
+}
+
+}
+</script>
+
+</body>
+</html>
